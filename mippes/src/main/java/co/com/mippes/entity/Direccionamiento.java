@@ -2,18 +2,23 @@ package co.com.mippes.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
 @Table(name = "direccionamiento")
 @Entity
-public class Direccionamiento {
+@NoArgsConstructor
+public @Data class Direccionamiento {
+
+	public Direccionamiento(Integer id) {
+		this.id = id;
+	}
 
 	@Column(name = "id")
+	@Id
     private Integer id;
 	
 	@Column(name = "id_direccionamiento")
@@ -88,7 +93,7 @@ public class Direccionamiento {
 	@Column(name = "es_anulado")
     private Boolean esAnulado;
 	
-	@Column(name = "reportado_programado")
+	@Column(name = "reportado_anulado")
     private Boolean reportadoAnulado;
 	
 	@Column(name = "es_entregado")
@@ -96,4 +101,28 @@ public class Direccionamiento {
 	
 	@Column(name = "reportado_entregado")
     private Boolean reportadoEntregado;
+	
+	@Column(name = "es_reporte_entregado")
+    private Boolean esReporteEntregado;
+	
+	@Column(name = "reportado_reporte_entregado")
+    private Boolean reportadoReporteEntregado;
+	
+	@Column(name = "cantidad_entregada")
+    private Integer cantidadEntregada;
+	
+	@Column(name = "id_entrega")
+    private Integer idEntrega;
+	
+	@Column(name = "id_reporte_entrega")
+    private Integer idReporteEntrega;
+	
+	@Column(name = "tipodoc_acompanante")
+    private String tipoDocAcompanante;
+	
+	@Column(name = "numdoc_acompanante")
+    private String numDocAcompanante;
+	
+	@Column(name = "valor_entregado")
+    private String valorEntregado;
 }
