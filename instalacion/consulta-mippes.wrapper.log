@@ -1,0 +1,26 @@
+2019-09-06 10:47:17,710 DEBUG - Starting ServiceWrapper in the CLI mode
+2019-09-06 10:47:18,004 INFO  - Uninstalling the service with id 'Consulta Mippes'
+2019-09-06 10:47:18,005 WARN  - The service with id 'Consulta Mippes' does not exist. Nothing to uninstall
+2019-09-06 10:47:18,006 DEBUG - Completed. Exit code is 0
+2019-09-06 10:47:19,588 DEBUG - Starting ServiceWrapper in the CLI mode
+2019-09-06 10:47:19,872 INFO  - Installing the service with id 'Consulta Mippes'
+2019-09-06 10:47:19,882 DEBUG - Completed. Exit code is 0
+2019-09-06 10:47:28,362 INFO  - Starting ServiceWrapper in the service mode
+2019-09-06 10:47:28,380 INFO  - Starting java -jar "consulta-mippes.jar"
+2019-09-06 10:47:28,392 INFO  - Started process 45404
+2019-09-06 10:47:28,399 DEBUG - Forwarding logs of the process System.Diagnostics.Process (java) to winsw.SizeBasedRollingLogAppender
+2019-09-06 10:50:07,794 INFO  - Stopping Consulta Mippes
+2019-09-06 10:50:07,794 DEBUG - ProcessKill 45404
+2019-09-06 10:50:07,914 INFO  - Found child process: 15832 Name: conhost.exe
+2019-09-06 10:50:07,998 INFO  - Stopping process 15832
+2019-09-06 10:50:08,009 INFO  - Send SIGINT 15832
+2019-09-06 10:50:08,011 WARN  - SIGINT to 15832 failed - Killing as fallback
+2019-09-06 10:50:08,014 INFO  - Stopping process 45404
+2019-09-06 10:50:08,026 INFO  - Send SIGINT 45404
+2019-09-06 10:50:08,026 WARN  - SIGINT to 45404 failed - Killing as fallback
+2019-09-06 10:50:08,028 INFO  - Finished Consulta Mippes
+2019-09-06 10:50:08,029 DEBUG - Completed. Exit code is 0
+2019-09-06 10:50:34,864 INFO  - Starting ServiceWrapper in the service mode
+2019-09-06 10:50:34,880 INFO  - Starting java -jar "consulta-mippes.jar"
+2019-09-06 10:50:34,894 INFO  - Started process 40088
+2019-09-06 10:50:34,901 DEBUG - Forwarding logs of the process System.Diagnostics.Process (java) to winsw.SizeBasedRollingLogAppender

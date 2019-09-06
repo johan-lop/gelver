@@ -53,8 +53,7 @@ public class ConsultaController {
 
 	@GetMapping(path = "/token")
 	public String obtenerrToken() {
-		LogInvocacionWs logInvocacionWs =  logDAO.findTopByCodigoServicioAndExitosoOrderByFechaConsultaDesc(CodigoServicio.CONSULTA_REPORTE_ENTREGAS, Boolean.TRUE);
-		return logInvocacionWs.getId().toString();
+		return consulta.validaToken(nit);
 	}
 	
 	@GetMapping(path = "/programacion")
