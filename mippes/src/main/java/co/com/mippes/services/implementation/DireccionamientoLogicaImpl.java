@@ -1,6 +1,7 @@
 package co.com.mippes.services.implementation;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class DireccionamientoLogicaImpl implements DireccionamientoLogica {
 
 	@Autowired
 	private ProgramacionDAO programacionDAO;
-	
+
 	@Value("${mipres.nit.ips}")
 	private String nit;
 
@@ -57,7 +58,6 @@ public class DireccionamientoLogicaImpl implements DireccionamientoLogica {
 				ModelMapper modelMapper = new ModelMapper();
 				Direccionamiento direccionamientoEntity = modelMapper.map(dir, Direccionamiento.class);
 				if (!direccionamientoDAO.existsById(direccionamientoEntity.getId())) {
-					direccionamientoEntity.setEsProgramado(Boolean.TRUE);
 					direccionamientoDAO.save(direccionamientoEntity);
 				}
 			});
@@ -77,13 +77,14 @@ public class DireccionamientoLogicaImpl implements DireccionamientoLogica {
 				programacion.setTipoIDSedeProv(dir.getTipoIdProv());
 				programacion.setCodSedeProv(sedeProveedor);
 				programacion.setCodSerTecAEntregar(dir.getCodSerTecAEntregar());
-				programacion.setCantTotAEntregar("1");
+				programacion.setCantTotAEntregar(dir.getCantTotAEntregar());
 				programacion.setNoIDSedeProv(dir.getNoIdProv());
 				RespuestaProgramacionDTO respuesta = consultaMipres.registarProgramacion(nit, programacion,
 						dir.getId());
 				if (respuesta != null) {
 					dir.setReportadoProgramado(Boolean.TRUE);
 					dir.setIdProgramacion(respuesta.getIdProgramacion());
+					dir.setFechaProgramacion(LocalDateTime.now());
 					direccionamientoDAO.save(dir);
 				}
 			});
@@ -112,8 +113,8 @@ public class DireccionamientoLogicaImpl implements DireccionamientoLogica {
 				entrega.setId(direccionamiento.getId());
 				entrega.setCodigoServicioTecnicoEntregado(direccionamiento.getCodSerTecAEntregar());
 				entrega.setCantidadTotalEntregada(direccionamiento.getCantTotAEntregar());
-				entrega.setEntTotal(1);
-				entrega.setCausaNoEntrega(0);
+				entrega.setEntTotal(direccionamiento.getEntregaTotal());
+				entrega.setCausaNoEntrega(direccionamiento.getCausaNoEntrega());
 				entrega.setFecEntrega(formatter.format(LocalDate.now()));
 				entrega.setNoLote("");
 				if (direccionamiento.getTipoIdPaciente().equals("RC")
@@ -128,6 +129,7 @@ public class DireccionamientoLogicaImpl implements DireccionamientoLogica {
 				if (respuesta != null) {
 					direccionamiento.setReportadoEntregado(Boolean.TRUE);
 					direccionamiento.setIdEntrega(respuesta.getIdEntrega());
+					direccionamiento.setFechaEntrega(LocalDateTime.now());
 					direccionamientoDAO.save(direccionamiento);
 				}
 			});
@@ -141,13 +143,15 @@ public class DireccionamientoLogicaImpl implements DireccionamientoLogica {
 			direccionamientos.forEach(direccionamiento -> {
 				ReporteEntregaDTO reporteEntrega = new ReporteEntregaDTO();
 				reporteEntrega.setId(direccionamiento.getId());
-				reporteEntrega.setCausaNoEntrega(0);
-				reporteEntrega.setEstadoEntrega(0);
+				reporteEntrega.setCausaNoEntrega(direccionamiento.getCausaNoEntrega());
+				reporteEntrega.setEstadoEntrega(1);
 				reporteEntrega.setValorEntregado(direccionamiento.getValorEntregado());
-				RespuestaReporteEntregaDTO respuesta = consultaMipres.registrarReporteEntrega(nit, reporteEntrega, direccionamiento.getId());
+				RespuestaReporteEntregaDTO respuesta = consultaMipres.registrarReporteEntrega(nit, reporteEntrega,
+						direccionamiento.getId());
 				if (respuesta != null) {
 					direccionamiento.setReportadoReporteEntregado(Boolean.TRUE);
 					direccionamiento.setIdReporteEntrega(respuesta.getIdReporteEntrega());
+					direccionamiento.setFechaReporte(LocalDateTime.now());
 					direccionamientoDAO.save(direccionamiento);
 				}
 			});
@@ -178,7 +182,7 @@ public class DireccionamientoLogicaImpl implements DireccionamientoLogica {
 	@Override
 	public void consultaReporteEntrega(String fecha) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

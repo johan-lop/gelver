@@ -1,5 +1,7 @@
 package co.com.mippes.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -125,4 +127,19 @@ public @Data class Direccionamiento {
 	
 	@Column(name = "valor_entregado")
     private String valorEntregado;
+	
+	@Column(name = "ent_total")
+    private Integer entregaTotal;
+	
+	@Column(name = "causa_no_entrega")
+    private Integer causaNoEntrega;
+	
+	@Column(name = "fecha_programacion")
+    private LocalDateTime fechaProgramacion;
+	
+	@Column(name = "fecha_entrega")
+    private LocalDateTime fechaEntrega;
+	
+	@Column(name = "fecha_reporte")
+    private LocalDateTime fechaReporte;
 }
