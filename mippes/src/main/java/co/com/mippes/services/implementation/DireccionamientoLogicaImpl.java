@@ -125,6 +125,13 @@ public class DireccionamientoLogicaImpl implements DireccionamientoLogica {
 					entrega.setTipoIdRecibe(direccionamiento.getTipoIdPaciente());
 					entrega.setNoIdRecibe(direccionamiento.getNumeroIdPaciente());
 				}
+				// clean when CausaNoEntrega equals 9
+				if (direccionamiento.getCausaNoEntrega() != null && direccionamiento.getCausaNoEntrega() == 9) {
+					entrega.setCodigoServicioTecnicoEntregado(null);
+					entrega.setCantidadTotalEntregada(null);
+					entrega.setEntTotal(null);
+					entrega.setFecEntrega(null);
+				}
 				RespuestaEntregaDTO respuesta = consultaMipres.registrarEntrega(nit, entrega, direccionamiento.getId());
 				if (respuesta != null) {
 					direccionamiento.setReportadoEntregado(Boolean.TRUE);
